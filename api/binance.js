@@ -13,7 +13,7 @@ function signed ( method )
         method.includes( "/depth" )
     );
 }
-
+const input = req.method === "POST" ? req.body : req.query;
 export default async function handler ( req, res )
 {
     try
@@ -64,7 +64,6 @@ export default async function handler ( req, res )
         } );
 
         const data = await response.json();
-
         res.status( 200 ).json( data );
     } catch ( err )
     {
