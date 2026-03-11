@@ -41,9 +41,11 @@ https://YOUR_PROJECT.vercel.app/api/binance
 
 ```bash
 curl "https://YOUR_PROJECT.vercel.app/api/binance?method=/api/v3/ticker/price&symbol=BTCUSDT"
-
+```
+```bash
 curl "https://YOUR_PROJECT.vercel.app/api/binance?method=/api/v3/account&key=YOUR_API_KEY&secret=YOUR_SECRET"
-
+```
+```bash
 curl -X POST "https://YOUR_PROJECT.vercel.app/api/binance" \
      -H "Content-Type: application/json" \
      -d '{
@@ -56,19 +58,17 @@ curl -X POST "https://YOUR_PROJECT.vercel.app/api/binance" \
            "secret": "YOUR_SECRET"
          }'
 ```
-###Notes
+##Notes
 
 The proxy automatically signs private requests with your secret key.
 
 Use exchange_domain to choose between binance.us or binance.com.
 
-Deployment
+##Deployment
 
 Clone this repository.
 
-Add your function to /api/binance.js.
-
-Create a vercel.json (optional):
+Vercel.json (optional):
 ```bash
 {
   "buildCommand": null,
@@ -91,7 +91,7 @@ The serverless function will be available at:
 https://YOUR_PROJECT.vercel.app/api/binance
 ```
 
-###Security
+##Security
 
 Do not expose your API secret key in frontend code. All private requests should go through this proxy.
 
