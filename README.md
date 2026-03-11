@@ -42,9 +42,11 @@ https://YOUR_PROJECT.vercel.app/api/binance
 ```bash
 curl "https://YOUR_PROJECT.vercel.app/api/binance?method=/api/v3/ticker/price&symbol=BTCUSDT"
 ```
+### 2. Private endpoint (GET)
 ```bash
 curl "https://YOUR_PROJECT.vercel.app/api/binance?method=/api/v3/account&key=YOUR_API_KEY&secret=YOUR_SECRET"
 ```
+### 3. Private endpoint (POST)
 ```bash
 curl -X POST "https://YOUR_PROJECT.vercel.app/api/binance" \
      -H "Content-Type: application/json" \
