@@ -58,13 +58,13 @@ curl -X POST "https://YOUR_PROJECT.vercel.app/api/binance" \
            "secret": "YOUR_SECRET"
          }'
 ```
-##Notes
+### Notes
 
 The proxy automatically signs private requests with your secret key.
 
 Use exchange_domain to choose between binance.us or binance.com.
 
-##Deployment
+### Deployment
 
 Clone this repository.
 
@@ -79,7 +79,7 @@ Vercel.json (optional):
   }
 }
 ```
-regions is for choosing what vercel region should serve the request e.g fra1 for frankfurt
+Regions is for choosing what vercel region should serve the request e.g fra1 for frankfurt
 
 Deploy to vercel
 ```bash
@@ -91,7 +91,7 @@ The serverless function will be available at:
 https://YOUR_PROJECT.vercel.app/api/binance
 ```
 
-##Security
+### Security
 
 Do not expose your API secret key in frontend code. All private requests should go through this proxy.
 
