@@ -1,10 +1,5 @@
 import crypto from "crypto";
 
-let auth = {
-    key: null,
-    secret: null
-};
-
 function signed ( method )
 {
     return !(
@@ -13,22 +8,26 @@ function signed ( method )
         method.includes( "/depth" )
     );
 }
-const input = req.method === "POST" ? req.body : req.query;
+
 export default async function handler ( req, res )
 {
     try
     {
+        const input = req.method === "POST" ? req.body : req.query;
+
         const {
             method,
+            key = null,
+            secret = null,
+            http_method = req.method,
             exchange_domain = "binance.us",
-            key,
-            secret,
-            http_method = "GET",
             ...params
-        } = req.query;
+        } = input;
 
-        auth.key = key || null;
-        auth.secret = secret || null;
+        if ( !method )
+        {
+            return res.status( 400 ).json( { error: "method parameter required" } );
+        }
 
         let host = "api";
         if ( method.startsWith( "/dapi" ) ) host = "dapi";
@@ -36,7 +35,7 @@ export default async function handler ( req, res )
 
         let url = `https://${host}.${exchange_domain}${method}`;
 
-        let query = new URLSearchParams( params );
+        const query = new URLSearchParams( params );
 
         if ( signed( method ) )
         {
@@ -44,14 +43,14 @@ export default async function handler ( req, res )
             query.append( "timestamp", timestamp );
 
             const signature = crypto
-                .createHmac( "sha256", auth.secret )
+                .createHmac( "sha256", secret || "" )
                 .update( query.toString() )
                 .digest( "hex" );
 
             query.append( "signature", signature );
         }
 
-        if ( [...query].length > 0 )
+        if ( query.toString() )
         {
             url += `?${query.toString()}`;
         }
@@ -59,11 +58,12 @@ export default async function handler ( req, res )
         const response = await fetch( url, {
             method: http_method,
             headers: {
-                "X-MBX-APIKEY": auth.key || ""
+                "X-MBX-APIKEY": key || ""
             }
         } );
 
         const data = await response.json();
+
         res.status( 200 ).json( data );
     } catch ( err )
     {
