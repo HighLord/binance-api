@@ -35,6 +35,10 @@ export default async function handler ( req, res )
 
         let url = `https://${host}.${exchange_domain}${method}`;
 
+        delete query.exchange_domain
+        delete query.method
+        delete query.http_method
+
         const query = new URLSearchParams( params );
 
         if ( signed( method ) )
