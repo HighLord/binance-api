@@ -23,7 +23,7 @@ export default async function handler ( req, res )
             exchange_domain = "binance.us",
             ...params
         } = input;
-
+        console.log( input );
         if ( !method )
         {
             return res.status( 400 ).json( { error: "method parameter required" } );
