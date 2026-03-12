@@ -37,11 +37,11 @@ export default async function handler ( req, res )
 
         const query = new URLSearchParams( params );
 
-        delete query.method;
-        delete query.key;
-        delete query.secret;
-        delete query.http_method;
-        delete query.exchange_domain;
+        query.delete( 'method' );
+        query.delete( 'key' );
+        query.delete( 'secret' );
+        query.delete( 'http_method' );
+        query.delete( 'exchange_domain' );
 
         if ( signed( method ) )
         {
