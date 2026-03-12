@@ -23,7 +23,7 @@ export default async function handler ( req, res )
             exchange_domain = "binance.us",
             ...params
         } = input;
-        console.log( input );
+
         if ( !method )
         {
             return res.status( 400 ).json( { error: "method parameter required" } );
@@ -35,9 +35,11 @@ export default async function handler ( req, res )
 
         let url = `https://${host}.${exchange_domain}${method}`;
 
-        delete query.exchange_domain
-        delete query.method
-        delete query.http_method
+        delete query.method;
+        delete query.key;
+        delete query.secret;
+        delete query.http_method;
+        delete query.exchange_domain;
 
         const query = new URLSearchParams( params );
 
