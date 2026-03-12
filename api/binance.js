@@ -37,19 +37,15 @@ export default async function handler ( req, res )
 
         const query = new URLSearchParams( params );
 
-        query.delete( "method" );
-        query.delete( "key" );
-        query.delete( "secret" );
-        query.delete( "http_method" );
-        query.delete( "exchange_domain" );
+        ['method', 'key', 'secret', 'http_method', 'exchange_domain'].forEach( k => query.delete( k ) );
 
-        if ( signed( method ) )
+        if ( signed( method ) && key && secret )
         {
             const timestamp = Date.now();
             query.append( "timestamp", timestamp );
 
             const signature = crypto
-                .createHmac( "sha256", secret || "" )
+                .createHmac( "sha256", secret )
                 .update( query.toString() )
                 .digest( "hex" );
 
