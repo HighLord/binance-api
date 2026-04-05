@@ -20,7 +20,7 @@ export default async function handler ( req, res )
             key = null,
             secret = null,
             http_method = req.method,
-            exchange_domain = "binance.us",
+            exchange_domain = "binance.com",
             ...params
         } = input;
 
